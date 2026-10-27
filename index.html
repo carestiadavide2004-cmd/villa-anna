@@ -33,8 +33,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost:wght@400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="img/video/drone-notte-poster.webp" type="image/webp">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="preload" as="image" href="img/video/drone-notte-poster-verticale-hq.webp" type="image/webp" media="(max-width: 767px) and (orientation: portrait)">
+  <link rel="preload" as="image" href="img/video/drone-notte-poster-hq.webp" type="image/webp" media="not all and (max-width: 767px) and (orientation: portrait)">
+  <link rel="stylesheet" href="style.css?v=11">
   <script>document.documentElement.classList.add('js');</script>
 
   <script type="application/ld+json">
@@ -99,8 +100,13 @@
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__media">
-        <img class="hero__poster" src="img/video/drone-notte-poster.webp" alt="Villa Anna di notte vista dal drone: la piscina illuminata, i gazebo e le luci del giardino" width="1280" height="720" fetchpriority="high">
-        <video class="hero__video" autoplay muted loop playsinline preload="none" poster="img/video/drone-notte-poster.webp" aria-hidden="true" tabindex="-1" data-src-phone="img/video/drone-notte-854.mp4" data-src-desktop="img/video/drone-notte-1280.mp4"></video>
+        <picture>
+          <source media="(max-width: 767px) and (orientation: portrait)" srcset="img/video/drone-notte-poster-verticale-hq.webp" type="image/webp" width="406" height="720">
+          <img class="hero__poster" src="img/video/drone-notte-poster-hq.webp" alt="Villa Anna di notte vista dal drone: la piscina illuminata, i gazebo e le luci del giardino" width="1280" height="720" fetchpriority="high">
+        </picture>
+        <video class="hero__video" autoplay muted loop playsinline preload="none" poster="img/video/drone-notte-poster-hq.webp" aria-hidden="true" tabindex="-1"
+          data-src-phone="img/video/drone-notte-verticale-hq.mp4" data-poster-phone="img/video/drone-notte-poster-verticale-hq.webp"
+          data-src-desktop="img/video/drone-notte-1280-hq.mp4" data-poster-desktop="img/video/drone-notte-poster-hq.webp"></video>
       </div>
       <div class="hero__veil" aria-hidden="true"></div>
       <div class="hero__shade" aria-hidden="true"></div>
@@ -209,33 +215,33 @@
           <p class="intro intro--light">Il rito nel gazebo in giardino, il ricevimento nelle sale della villa, la torta al momento del brindisi. A Villa Anna la festa ha tutto lo spazio che serve.</p>
         </div>
 
-        <ul class="occasioni" aria-label="Gli eventi che organizziamo">
-          <li class="occasione reveal">
+        <ul class="occasioni scorre-telefono reveal" id="occasioni" aria-label="Gli eventi che organizziamo" data-scorre>
+          <li class="occasione">
             <svg class="occasione__icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="28" r="10"/><circle cx="30" cy="28" r="10"/><path d="M30 11.5l3-4 3 4-3 3.5z"/></svg>
             <h3>Matrimoni e cerimonie in giardino</h3>
             <p>Il sì sotto il gazebo, con il tappeto rosso, poi il ricevimento nelle sale della villa.</p>
           </li>
-          <li class="occasione reveal">
+          <li class="occasione">
             <svg class="occasione__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8h20c0 10-4.5 16-10 16S14 18 14 8z"/><path d="M24 24v13"/><path d="M17 41h14"/><path d="M20 37h8"/><circle cx="24" cy="4.5" r="1.6"/></svg>
             <h3>Comunioni e cresime</h3>
             <p>Un pranzo di festa per tutta la famiglia, con il giardino per le foto ricordo.</p>
           </li>
-          <li class="occasione reveal">
+          <li class="occasione">
             <svg class="occasione__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6c7 9 11 15.2 11 21a11 11 0 0 1-22 0c0-5.8 4-12 11-21z"/><path d="M18.5 29.5a6 6 0 0 0 5 5"/></svg>
             <h3>Battesimi</h3>
             <p>Una giornata serena per accogliere i più piccoli, con il menù pensato per i bambini.</p>
           </li>
-          <li class="occasione reveal">
+          <li class="occasione">
             <svg class="occasione__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 42h34"/><rect x="10" y="26" width="28" height="16" rx="1.5"/><path d="M10 32c2.3 2 4.7 2 7 0s4.7-2 7 0 4.7 2 7 0 4.7-2 7 0"/><path d="M24 26v-6"/><path d="M24 15.5c1.6-1.8 1.6-3.6 0-6-1.6 2.4-1.6 4.2 0 6z"/></svg>
             <h3>Compleanni e diciottesimi</h3>
             <p>Dalla festa in famiglia ai diciotto anni, con la torta al centro della scena.</p>
           </li>
-          <li class="occasione reveal">
+          <li class="occasione">
             <svg class="occasione__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 17l20-8 20 8-20 8z"/><path d="M12 21v9c3 3 7.5 4 12 4s9-1 12-4v-9"/><path d="M44 17v10"/></svg>
             <h3>Lauree e anniversari</h3>
             <p>Un traguardo da festeggiare con le persone care, a tavola o in giardino.</p>
           </li>
-          <li class="occasione reveal">
+          <li class="occasione">
             <svg class="occasione__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 6h9l-.8 12a3.7 3.7 0 0 1-7.4 0z"/><path d="M14.5 21.7V38"/><path d="M10 38h9"/><path d="M29 6h9l-.8 12a3.7 3.7 0 0 1-7.4 0z"/><path d="M33.5 21.7V38"/><path d="M29 38h9"/><path d="M22 10l2-3 2 3"/></svg>
             <h3>Cene aziendali e di gruppo</h3>
             <p>La sala privata per cene di lavoro, ritrovi e tavolate tra amici.</p>
@@ -245,16 +251,28 @@
         <div class="nozze">
           <div class="nozze__text reveal">
             <h3 class="nozze__title">Il giorno del vostro matrimonio</h3>
-            <p>Il sì sotto il gazebo, le foto in giardino, il brindisi e il taglio della torta nelle sale della villa: tutta la giornata in un unico luogo, senza spostamenti.</p>
+            <p>Il sì sotto il gazebo, le foto in giardino, il brindisi e il taglio della torta: tutta la giornata in un unico luogo, senza spostamenti.</p>
           </div>
-          <div class="nozze__foto">
-            <figure class="reveal" style="--r: .784">
-              <img src="img/sposi-brindisi-torta-piscina-480.webp" srcset="img/sposi-brindisi-torta-piscina-480.webp 480w, img/sposi-brindisi-torta-piscina-960.webp 960w" sizes="(min-width: 960px) 30vw, 46vw" alt="Gli sposi brindano accanto alla torta nuziale, sotto l'arco fiorito a bordo piscina" width="960" height="1224" loading="lazy" decoding="async">
+          <div class="nozze__foto scorre reveal" id="nozze-foto" aria-label="Foto dei matrimoni a Villa Anna" data-scorre>
+            <figure class="solo-telefono">
+              <img src="img/gazebo-cerimonie.jpg" alt="Il gazebo bianco in giardino allestito per una cerimonia, con tappeto rosso, lanterne e sedie rivestite" width="1600" height="1200" loading="lazy" decoding="async">
+              <figcaption>Il gazebo allestito per la cerimonia</figcaption>
+            </figure>
+            <figure>
+              <img src="img/sposi-brindisi-torta-piscina-480.webp" srcset="img/sposi-brindisi-torta-piscina-480.webp 480w, img/sposi-brindisi-torta-piscina-960.webp 960w" sizes="(min-width: 960px) 30vw, 60vw" alt="Gli sposi brindano accanto alla torta nuziale, sotto l'arco fiorito a bordo piscina" width="960" height="1224" loading="lazy" decoding="async">
               <figcaption>Il brindisi degli sposi a bordo piscina</figcaption>
             </figure>
-            <figure class="reveal" style="--r: .75">
-              <img src="img/tableau-just-married-480.webp" srcset="img/tableau-just-married-480.webp 480w, img/tableau-just-married-960.webp 960w" sizes="(min-width: 960px) 30vw, 46vw" alt="Il tableau degli sposi con la scritta Just Married, fiori bianchi e i nomi dei tavoli" width="960" height="1280" loading="lazy" decoding="async">
+            <figure>
+              <img src="img/tableau-just-married-480.webp" srcset="img/tableau-just-married-480.webp 480w, img/tableau-just-married-960.webp 960w" sizes="(min-width: 960px) 30vw, 60vw" alt="Il tableau degli sposi con la scritta Just Married, fiori bianchi e i nomi dei tavoli" width="960" height="1280" loading="lazy" decoding="async">
               <figcaption>Il tableau con i tavoli degli ospiti</figcaption>
+            </figure>
+            <figure>
+              <img src="img/torta-arco-fiori-piscina-giorno-480.webp" srcset="img/torta-arco-fiori-piscina-giorno-480.webp 480w, img/torta-arco-fiori-piscina-giorno-960.webp 960w" sizes="(min-width: 960px) 30vw, 60vw" alt="La torta nuziale sotto l'arco di fiori a bordo piscina, di giorno" width="960" height="1280" loading="lazy" decoding="async">
+              <figcaption>Di giorno, sotto l'arco di fiori</figcaption>
+            </figure>
+            <figure>
+              <img src="img/taglio-torta-notte-fontane-dall-alto-480.webp" srcset="img/taglio-torta-notte-fontane-dall-alto-480.webp 480w, img/taglio-torta-notte-fontane-dall-alto-960.webp 960w" sizes="(min-width: 960px) 30vw, 60vw" alt="Il taglio della torta di sera, visto dall'alto, con le fontane luminose accanto alla piscina" width="960" height="1280" loading="lazy" decoding="async">
+              <figcaption>La sera, tra le fontane luminose</figcaption>
             </figure>
           </div>
         </div>
@@ -265,7 +283,7 @@
           </figure>
           <div class="forti__text reveal">
             <h3 class="forti__title">Cosa trovate a Villa Anna</h3>
-            <ul class="forti__list">
+            <ul class="forti__list scorre-telefono" id="forti" data-scorre>
               <li>
                 <h4>Il gazebo per la cerimonia</h4>
                 <p>In giardino, tra colonne e rose, con il tappeto rosso e le sedie vestite di bianco.</p>
@@ -287,23 +305,6 @@
                 <p>Per i gruppi che desiderano uno spazio tutto per sé.</p>
               </li>
             </ul>
-          </div>
-        </div>
-
-        <div class="nozze nozze--torte">
-          <div class="nozze__text reveal">
-            <h3 class="nozze__title">Il momento della torta</h3>
-            <p>Sotto l'arco di fiori a bordo piscina, di giorno o la sera tra le fontane luminose: il taglio della torta è il momento che tutti aspettano.</p>
-          </div>
-          <div class="nozze__foto">
-            <figure class="reveal">
-              <img src="img/torta-arco-fiori-piscina-giorno-480.webp" srcset="img/torta-arco-fiori-piscina-giorno-480.webp 480w, img/torta-arco-fiori-piscina-giorno-960.webp 960w" sizes="(min-width: 960px) 30vw, 46vw" alt="La torta nuziale sotto l'arco di fiori a bordo piscina, di giorno" width="960" height="1280" loading="lazy" decoding="async">
-              <figcaption>Di giorno, sotto l'arco di fiori</figcaption>
-            </figure>
-            <figure class="reveal">
-              <img src="img/taglio-torta-notte-fontane-dall-alto-480.webp" srcset="img/taglio-torta-notte-fontane-dall-alto-480.webp 480w, img/taglio-torta-notte-fontane-dall-alto-960.webp 960w" sizes="(min-width: 960px) 30vw, 46vw" alt="Il taglio della torta di sera, visto dall'alto, con le fontane luminose accanto alla piscina" width="960" height="1280" loading="lazy" decoding="async">
-              <figcaption>La sera, tra le fontane luminose</figcaption>
-            </figure>
           </div>
         </div>
       </div>
@@ -724,6 +725,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=11"></script>
 </body>
 </html>

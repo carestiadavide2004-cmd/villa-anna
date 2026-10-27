@@ -49,7 +49,7 @@
     hideZones.forEach(function (z) { zoneIo.observe(z); });
   }
 
-  /* ---------- Hero e fasce: sfocatura e parallax allo scroll ---------- */
+  /* ---------- Hero e fasce: parallax allo scroll ---------- */
   var heroMedia = document.querySelector('.hero__media');
   var heroShade = document.querySelector('.hero__shade');
   var bands = Array.prototype.slice.call(document.querySelectorAll('.band'));
@@ -66,12 +66,20 @@
       var p = heroVideo.play();
       if (p && p.catch) p.catch(function () {}); // autoplay bloccato: resta il poster
     };
+    // telefono in verticale: video verticale; computer e tablet: video 1280
+    var phoneMq = window.matchMedia('(max-width: 767px) and (orientation: portrait)');
+    var pickVideo = function () {
+      var kind = phoneMq.matches ? 'phone' : 'desktop';
+      var src = heroVideo.getAttribute('data-src-' + kind);
+      if (heroVideo.getAttribute('src') === src) return;
+      heroVideo.poster = heroVideo.getAttribute('data-poster-' + kind);
+      heroVideo.src = src;
+      playVideo();
+    };
     heroVideo.muted = true;
-    heroVideo.src = window.matchMedia('(max-width: 767px)').matches
-      ? heroVideo.getAttribute('data-src-phone')
-      : heroVideo.getAttribute('data-src-desktop');
     heroVideo.addEventListener('playing', function () { heroMedia.classList.add('is-playing'); }, { once: true });
-    playVideo();
+    pickVideo();
+    if (phoneMq.addEventListener) phoneMq.addEventListener('change', pickVideo);
     // fuori schermo il video si ferma: meno batteria e meno dati
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
@@ -90,8 +98,8 @@
       var h = hero.offsetHeight;
       var p = Math.min(Math.max(window.scrollY / h, 0), 1);
       if (p < 1) {
+        // solo spostamento: nessuna sfocatura sul video
         heroMedia.style.transform = 'translate3d(0,' + (p * h * (desktop ? 0.3 : 0.15)).toFixed(1) + 'px,0)';
-        heroMedia.style.filter = p > 0.01 ? 'blur(' + (p * (desktop ? 8 : 4)).toFixed(2) + 'px)' : '';
         heroShade.style.opacity = (p * 0.45).toFixed(3);
       }
     }
@@ -185,7 +193,7 @@
   /* ---------- Immagini piccole: entrano di lato, alternando sinistra e destra ---------- */
   // escluse le immagini a tutta larghezza (hero e fasce) e quelle nei caroselli
   var slides = Array.prototype.slice.call(document.querySelectorAll('main figure, main .gallery__item'))
-    .filter(function (el) { return !el.closest('.hero, .band, .carosello'); });
+    .filter(function (el) { return !el.closest('.hero, .band, .carosello, .scorre, .scorre-telefono'); });
   var alterna = 0;
   slides.forEach(function (el) {
     el.classList.remove('reveal');
@@ -225,6 +233,75 @@
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.2 });
     slides.forEach(function (el) { slideIo.observe(el); });
   }
+
+  /* ---------- Caroselli di carte e foto: puntini e frecce ---------- */
+  document.querySelectorAll('[data-scorre]').forEach(function (track) {
+    var nav = document.createElement('div');
+    nav.className = 'scorre-nav';
+    nav.innerHTML = '<button class="scorre-nav__freccia scorre-nav__freccia--prev" type="button" aria-label="Precedente"></button>' +
+      '<div class="scorre-nav__punti"></div>' +
+      '<button class="scorre-nav__freccia scorre-nav__freccia--next" type="button" aria-label="Successivo"></button>';
+    track.parentNode.insertBefore(nav, track.nextSibling);
+    var prev = nav.firstChild;
+    var next = nav.lastChild;
+    var dots = nav.children[1];
+    var stops = [];
+    var active = 0;
+
+    // le posizioni di arrivo: una per ogni carta che può allinearsi a sinistra
+    function measure() {
+      var max = track.scrollWidth - track.clientWidth;
+      var pad = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+      var left = track.getBoundingClientRect().left - track.scrollLeft;
+      stops = [];
+      Array.prototype.forEach.call(track.children, function (slide) {
+        if (!slide.offsetWidth) return; // nascosta a questa larghezza
+        var x = Math.round(Math.min(Math.max(slide.getBoundingClientRect().left - left - pad, 0), max));
+        if (!stops.length || x - stops[stops.length - 1] > 2) stops.push(x);
+      });
+      nav.hidden = max < 4 || stops.length < 2;
+      dots.innerHTML = '';
+      stops.forEach(function (x, i) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'scorre-nav__punto';
+        d.setAttribute('aria-label', 'Vai a ' + (i + 1) + ' di ' + stops.length);
+        d.addEventListener('click', function () { go(i); });
+        dots.appendChild(d);
+      });
+      update();
+    }
+
+    function go(i) {
+      i = Math.max(0, Math.min(stops.length - 1, i));
+      track.scrollTo({ left: stops[i], behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    function update() {
+      var x = track.scrollLeft;
+      active = 0;
+      stops.forEach(function (s, i) { if (Math.abs(s - x) < Math.abs(stops[active] - x)) active = i; });
+      Array.prototype.forEach.call(dots.children, function (d, i) {
+        d.classList.toggle('is-active', i === active);
+        if (i === active) d.setAttribute('aria-current', 'true');
+        else d.removeAttribute('aria-current');
+      });
+      prev.disabled = active === 0;
+      next.disabled = active === stops.length - 1;
+    }
+
+    var pending = false;
+    track.addEventListener('scroll', function () {
+      if (pending) return;
+      pending = true;
+      window.requestAnimationFrame(function () { pending = false; update(); });
+    }, { passive: true });
+    prev.addEventListener('click', function () { go(active - 1); });
+    next.addEventListener('click', function () { go(active + 1); });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    measure();
+  });
 
   /* ---------- Comparsa leggera allo scroll ---------- */
   var reveals = document.querySelectorAll('.reveal');
