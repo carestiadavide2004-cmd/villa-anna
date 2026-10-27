@@ -466,8 +466,24 @@
     riepilogo.appendChild(row);
   }
 
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var submitText = submitBtn.textContent;
+  var sending = false;
+
+  function setSending(on) {
+    sending = on;
+    submitBtn.disabled = on;
+    submitBtn.textContent = on ? 'Invio in corso…' : submitText;
+    form.setAttribute('aria-busy', on ? 'true' : 'false');
+  }
+
+  function showSendError() {
+    summary.innerHTML = 'Non siamo riusciti a inviare la richiesta. Riprovate tra qualche minuto oppure chiamateci allo <a href="tel:+390858579011">085&nbsp;857&nbsp;9011</a>: saremo felici di aiutarvi.';
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (sending) return;
     var invalid = rules.filter(function (rule) { return !validateField(rule); });
     if (invalid.length) {
       summary.textContent = invalid.length === 1
@@ -479,22 +495,51 @@
     summary.textContent = '';
 
     var data = new FormData(form);
-    riepilogo.innerHTML = '';
-    addRow('Evento', data.get('tipo'));
-    addRow('Data', formatDate(data.get('data')));
-    addRow('Ospiti', 'circa ' + data.get('ospiti'));
-    addRow('Dove', data.get('luogo') || 'Da decidere insieme');
-    addRow('Nome', data.get('nome').trim());
-    addRow('Telefono', data.get('telefono').trim());
     var email = (data.get('email') || '').trim();
-    if (email) addRow('Email', email);
     var msg = (data.get('messaggio') || '').trim();
-    if (msg) addRow('Messaggio', msg);
+    var righe = [
+      ['Evento', data.get('tipo')],
+      ['Data', formatDate(data.get('data'))],
+      ['Ospiti', 'circa ' + data.get('ospiti')],
+      ['Dove', data.get('luogo') || 'Da decidere insieme'],
+      ['Nome', data.get('nome').trim()],
+      ['Telefono', data.get('telefono').trim()]
+    ];
+    if (email) righe.push(['Email', email]);
+    if (msg) righe.push(['Messaggio', msg]);
 
-    form.hidden = true;
-    conferma.hidden = false;
-    conferma.focus({ preventScroll: true });
-    conferma.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    // Web3Forms inoltra la richiesta alla casella email del ristorante
+    var payload = {
+      access_key: data.get('access_key'),
+      subject: data.get('subject'),
+      from_name: data.get('from_name')
+    };
+    if (data.get('botcheck')) payload.botcheck = true; // campo anti-spam: lo compilano solo i bot
+    righe.forEach(function (r) { payload[r[0]] = r[1]; });
+    if (email) payload.replyto = email;
+
+    setSending(true);
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (res) {
+        setSending(false);
+        if (!res.success) { showSendError(); return; }
+
+        riepilogo.innerHTML = '';
+        righe.forEach(function (r) { addRow(r[0], r[1]); });
+        form.hidden = true;
+        conferma.hidden = false;
+        conferma.focus({ preventScroll: true });
+        conferma.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      })
+      .catch(function () {
+        setSending(false);
+        showSendError();
+      });
   });
 
   document.getElementById('nuova-richiesta').addEventListener('click', function () {

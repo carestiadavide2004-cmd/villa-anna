@@ -1,5 +1,5 @@
 /* =========================================================
-   Villa Anna – Ristorante La Teleferica · bozza dimostrativa
+   Villa Anna – Ristorante La Teleferica
    ========================================================= */
 
 :root {
@@ -914,13 +914,16 @@ p { margin: 0; }
 }
 .conferma__list dt { font-size: .92rem; }
 .conferma__list dd { margin: 0; color: var(--inchiostro); overflow-wrap: anywhere; white-space: pre-line; }
-.conferma__demo {
+.conferma__nota {
   margin: 0 0 1.5rem;
   padding: .85rem 1rem;
   border-left: 2px solid var(--oro);
   background: var(--avorio);
   font-size: .95rem;
 }
+.conferma__nota a,
+.form__summary a { color: var(--bordeaux); font-weight: 500; text-underline-offset: 3px; }
+.form .btn[disabled] { opacity: .7; cursor: progress; }
 .js .conferma:not([hidden]) { animation: hero-in .6s var(--ease) both; }
 
 /* Dove siamo */
@@ -1259,6 +1262,22 @@ p { margin: 0; }
   font-size: .82rem;
   color: rgba(250, 246, 238, .66);
 }
+.footer__credit a { color: inherit; text-underline-offset: 3px; }
+.footer__credit a:hover { color: var(--avorio); }
+
+/* Pagina privacy */
+.privacy { padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem)); }
+.privacy .wrap { max-width: 50rem; }
+.privacy h2 {
+  margin-top: 2.25rem;
+  font-family: var(--f-serif);
+  font-size: 1.6rem;
+  color: var(--oliva);
+}
+.privacy p, .privacy ul { margin-top: .75rem; }
+.privacy ul { padding-left: 1.25rem; }
+.privacy a { color: var(--bordeaux); font-weight: 500; text-underline-offset: 3px; }
+.privacy__back { margin-top: 3rem; }
 
 /* ---------- Lightbox ---------- */
 

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="robots" content="noindex, nofollow">
   <title>Villa Anna – Ristorante La Teleferica | Ristorante e cerimonie a Lettomanoppello (PE)</title>
   <meta name="description" content="Ristorante di cucina italiana in una villa con giardino a Lettomanoppello (PE). Matrimoni e cerimonie nel gazebo, comunioni, battesimi, compleanni e feste private.">
   <meta name="theme-color" content="#2F3520">
+  <link rel="canonical" href="https://villaannalateleferica.it/">
 
   <!-- Anteprima per WhatsApp e social -->
   <meta property="og:type" content="website">
@@ -14,9 +14,9 @@
   <meta property="og:site_name" content="Villa Anna – Ristorante La Teleferica">
   <meta property="og:title" content="Villa Anna – Ristorante La Teleferica">
   <meta property="og:description" content="Cucina italiana e cerimonie in una villa con giardino, fontane e gazebo a Lettomanoppello (PE).">
-  <meta property="og:url" content="https://carestiadavide2004-cmd.github.io/bozza-teleferica/">
-  <meta property="og:image" content="https://carestiadavide2004-cmd.github.io/bozza-teleferica/img/anteprima.jpg">
-  <meta property="og:image:secure_url" content="https://carestiadavide2004-cmd.github.io/bozza-teleferica/img/anteprima.jpg">
+  <meta property="og:url" content="https://villaannalateleferica.it/">
+  <meta property="og:image" content="https://villaannalateleferica.it/img/anteprima.jpg">
+  <meta property="og:image:secure_url" content="https://villaannalateleferica.it/img/anteprima.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Villa Anna – Ristorante La Teleferica">
   <meta name="twitter:description" content="Cucina italiana e cerimonie in una villa con giardino, fontane e gazebo a Lettomanoppello (PE).">
-  <meta name="twitter:image" content="https://carestiadavide2004-cmd.github.io/bozza-teleferica/img/anteprima.jpg">
+  <meta name="twitter:image" content="https://villaannalateleferica.it/img/anteprima.jpg">
 
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost:wght@400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/villa-facciata-tappeto-rosso.jpg">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
   <script>document.documentElement.classList.add('js');</script>
 
   <script type="application/ld+json">
@@ -42,8 +42,8 @@
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": "Villa Anna – Ristorante La Teleferica",
-    "url": "https://carestiadavide2004-cmd.github.io/bozza-teleferica/",
-    "image": "https://carestiadavide2004-cmd.github.io/bozza-teleferica/img/anteprima.jpg",
+    "url": "https://villaannalateleferica.it/",
+    "image": "https://villaannalateleferica.it/img/anteprima.jpg",
     "telephone": "+39 085 857 9011",
     "address": {
       "@type": "PostalAddress",
@@ -422,7 +422,12 @@
         </div>
 
         <div class="richiesta__box reveal">
-          <form class="form" id="form-evento" novalidate>
+          <form class="form" id="form-evento" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <!-- Web3Forms: le richieste arrivano alla casella email del ristorante -->
+            <input type="hidden" name="access_key" value="23ae0127-96f5-42e8-983b-dfcc7c2f2fa4">
+            <input type="hidden" name="subject" value="Nuova richiesta di preventivo dal sito">
+            <input type="hidden" name="from_name" value="Sito Villa Anna – Ristorante La Teleferica">
+            <input type="checkbox" name="botcheck" style="display: none;" autocomplete="off">
             <p class="form__legend">I campi con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> sono obbligatori.</p>
             <div class="field field--full">
               <label for="f-tipo">Tipo di evento <span class="req" aria-hidden="true">*</span></label>
@@ -497,10 +502,10 @@
           </form>
 
           <div class="conferma" id="conferma" hidden tabindex="-1">
-            <h3 class="conferma__title">Richiesta di preventivo pronta</h3>
-            <p>Grazie! Ecco il riepilogo di quello che hai inviato:</p>
+            <h3 class="conferma__title">Richiesta inviata!</h3>
+            <p>Vi ricontatteremo al più presto. Ecco il riepilogo della vostra richiesta:</p>
             <dl class="conferma__list" id="riepilogo"></dl>
-            <p class="conferma__demo">Bozza dimostrativa: nel sito definitivo la richiesta arriverà via email al ristorante.</p>
+            <p class="conferma__nota">Per qualsiasi necessità potete chiamarci allo <a href="tel:+390858579011">085 857 9011</a>.</p>
             <button class="btn btn--outline" type="button" id="nuova-richiesta">Scrivi un'altra richiesta</button>
           </div>
         </div>
@@ -568,7 +573,7 @@
         </a>
       </div>
     </div>
-    <p class="footer__credit">Bozza dimostrativa realizzata da Davide Carestia</p>
+    <p class="footer__credit">Sito realizzato da Davide Carestia · <a href="privacy.html">Privacy</a></p>
   </footer>
 
   <!-- Barra contatti su telefono -->
@@ -594,6 +599,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
