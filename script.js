@@ -57,6 +57,30 @@
 
   function isDesktop() { return window.innerWidth >= 960; }
 
+  /* ---------- Video del drone nell'apertura ---------- */
+  // con "riduci movimento" o il risparmio dati resta solo il poster
+  var heroVideo = document.querySelector('.hero__video');
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (heroVideo && !reduceMotion && !saveData) {
+    var playVideo = function () {
+      var p = heroVideo.play();
+      if (p && p.catch) p.catch(function () {}); // autoplay bloccato: resta il poster
+    };
+    heroVideo.muted = true;
+    heroVideo.src = window.matchMedia('(max-width: 767px)').matches
+      ? heroVideo.getAttribute('data-src-phone')
+      : heroVideo.getAttribute('data-src-desktop');
+    heroVideo.addEventListener('playing', function () { heroMedia.classList.add('is-playing'); }, { once: true });
+    playVideo();
+    // fuori schermo il video si ferma: meno batteria e meno dati
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) playVideo();
+        else heroVideo.pause();
+      }).observe(hero);
+    }
+  }
+
   function updateEffects() {
     ticking = false;
     var vh = window.innerHeight;
@@ -159,9 +183,9 @@
   });
 
   /* ---------- Immagini piccole: entrano di lato, alternando sinistra e destra ---------- */
-  // escluse le immagini a tutta larghezza (hero e fasce)
+  // escluse le immagini a tutta larghezza (hero e fasce) e quelle nei caroselli
   var slides = Array.prototype.slice.call(document.querySelectorAll('main figure, main .gallery__item'))
-    .filter(function (el) { return !el.closest('.hero, .band'); });
+    .filter(function (el) { return !el.closest('.hero, .band, .carosello'); });
   var alterna = 0;
   slides.forEach(function (el) {
     el.classList.remove('reveal');
@@ -259,13 +283,14 @@
     });
   });
 
-  /* ---------- Lightbox del giardino ---------- */
+  /* ---------- Lightbox delle gallerie ---------- */
   var photos = [];
   var lb = document.getElementById('lightbox');
   var lbImg = lb.querySelector('.lightbox__img');
   var lbCount = document.getElementById('lb-count');
   var lbText = document.getElementById('lb-text');
   var lbDots = lb.querySelector('.lightbox__dots');
+  var lbFigure = lb.querySelector('.lightbox__figure');
   var current = 0;
   var lastTrigger = null;
 
@@ -318,23 +343,58 @@
     document.body.classList.remove('no-scroll');
     updateCallbar();
     window.setTimeout(function () {
-      if (!lb.classList.contains('is-open')) lb.hidden = true;
+      if (lb.classList.contains('is-open')) return;
+      lb.hidden = true;
+      lbFigure.style.transform = '';
+      lbFigure.style.opacity = '';
     }, reduceMotion ? 0 : 300);
-    if (lastTrigger) lastTrigger.focus();
+    if (lastTrigger) lastTrigger.focus({ preventScroll: true });
   }
 
+  var galleries = {};
   document.querySelectorAll('[data-gallery]').forEach(function (gallery) {
     var name = gallery.getAttribute('data-gallery');
     var buttons = Array.prototype.slice.call(gallery.querySelectorAll('.gallery__item'));
     var list = buttons.map(function (btn) {
       var img = btn.querySelector('img');
-      return { src: img.getAttribute('src'), alt: img.getAttribute('alt') };
+      // nella lightbox la versione grande, se c'è
+      return { src: img.getAttribute('data-full') || img.getAttribute('src'), alt: img.getAttribute('alt') };
     });
+    galleries[gallery.id] = list;
     buttons.forEach(function (btn, i) {
       btn.setAttribute('aria-label', 'Ingrandisci: ' + list[i].alt);
       btn.addEventListener('click', function () { openLightbox(list, name, i, btn); });
     });
   });
+
+  /* ---------- Galleria: "Vedi tutte le foto" e avanzamento del carosello ---------- */
+  var galGrid = document.getElementById('galleria-foto');
+  var galBtn = document.getElementById('galleria-tutte');
+  var galBar = document.querySelector('.galleria__progress span');
+  if (galGrid && galBtn) {
+    var galLabel = galBtn.textContent;
+    galBtn.addEventListener('click', function () {
+      // sul telefono le foto sono già tutte nel carosello: si aprono a schermo intero
+      if (!isDesktop()) {
+        openLightbox(galleries['galleria-foto'], 'Galleria', 0, galBtn);
+        return;
+      }
+      var open = galGrid.classList.toggle('is-open');
+      galBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      galBtn.textContent = open ? 'Mostra meno foto' : galLabel;
+      if (!open && galGrid.getBoundingClientRect().top < 0) {
+        galGrid.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+    if (galBar) {
+      var updateGalBar = function () {
+        var max = galGrid.scrollWidth - galGrid.clientWidth;
+        var p = max > 0 ? galGrid.scrollLeft / max : 0;
+        galBar.style.transform = 'scaleX(' + (0.08 + p * 0.92).toFixed(3) + ')';
+      };
+      galGrid.addEventListener('scroll', updateGalBar, { passive: true });
+    }
+  }
 
   lb.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
   lb.querySelector('.lightbox__nav--prev').addEventListener('click', function () { show(current - 1); });
@@ -360,22 +420,44 @@
     if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') closeMenu(true);
   });
 
-  // Swipe sul telefono
-  var startX = 0, startY = 0, tracking = false;
+  // Swipe sul telefono: di lato cambia foto, in su o in giù chiude
+  var startX = 0, startY = 0, tracking = false, axis = '';
   lb.addEventListener('touchstart', function (e) {
-    if (e.touches.length !== 1) return;
+    if (e.touches.length !== 1) { tracking = false; return; }
     tracking = true;
+    axis = '';
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+    lbFigure.style.transition = 'none';
+  }, { passive: true });
+  lb.addEventListener('touchmove', function (e) {
+    if (!tracking || e.touches.length !== 1) return;
+    var dx = e.touches[0].clientX - startX;
+    var dy = e.touches[0].clientY - startY;
+    if (!axis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) axis = Math.abs(dy) > Math.abs(dx) ? 'y' : 'x';
+    // la foto segue il dito e sfuma man mano
+    if (axis === 'y' && !reduceMotion) {
+      lbFigure.style.transform = 'translate3d(0,' + dy.toFixed(1) + 'px,0)';
+      lbFigure.style.opacity = Math.max(0.35, 1 - Math.abs(dy) / 420).toFixed(3);
+    }
   }, { passive: true });
   lb.addEventListener('touchend', function (e) {
     if (!tracking) return;
     tracking = false;
+    lbFigure.style.transition = '';
     var dx = e.changedTouches[0].clientX - startX;
     var dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
-      show(dx < 0 ? current + 1 : current - 1);
+    if (axis === 'y' && Math.abs(dy) > 90) {
+      if (!reduceMotion) {
+        lbFigure.style.transform = 'translate3d(0,' + (dy > 0 ? 1 : -1) * window.innerHeight * 0.35 + 'px,0)';
+        lbFigure.style.opacity = '0';
+      }
+      closeLightbox();
+      return;
     }
+    lbFigure.style.transform = '';
+    lbFigure.style.opacity = '';
+    if (axis === 'x' && Math.abs(dx) > 45) show(dx < 0 ? current + 1 : current - 1);
   });
 
   /* ---------- Modulo richiesta di preventivo ---------- */

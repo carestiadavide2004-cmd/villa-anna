@@ -191,6 +191,15 @@ p { margin: 0; }
 .btn--gold { background: transparent; color: var(--oro-chiaro); border-color: var(--oro); }
 .btn--gold:hover { background: var(--oro); color: var(--oliva-scura); }
 
+/* WhatsApp: verde oliva del sito, riconoscibile dall'icona */
+.btn--wa { background: var(--oliva); color: var(--avorio); border-color: rgba(207, 178, 122, .45); }
+.btn--wa:hover { background: #434A2B; border-color: var(--oro-chiaro); }
+
+.ico-wa { fill: currentColor; }
+.ico-tel { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.btn .ico-wa,
+.btn .ico-tel { width: 20px; height: 20px; flex: none; }
+
 .btn--outline { background: transparent; color: var(--inchiostro); border-color: var(--pietra-scura); }
 .btn--outline:hover { border-color: var(--inchiostro); }
 
@@ -329,6 +338,19 @@ p { margin: 0; }
   font-size: 1.25rem;
   text-decoration: none;
 }
+.menu__wa {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  width: fit-content;
+  min-height: 44px;
+  margin-bottom: .5rem;
+  color: var(--avorio);
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+.menu__wa .ico-wa { width: 20px; height: 20px; flex: none; color: var(--oro-chiaro); }
+.menu__wa:hover { color: var(--oro-chiaro); }
 
 /* ---------- Hero ---------- */
 
@@ -348,14 +370,18 @@ p { margin: 0; }
   inset: 0;
   will-change: transform, filter;
 }
-.hero__img {
+.hero__poster,
+.hero__video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 66% 60%;
+  object-position: 45% 55%;
 }
+/* il video compare sopra il poster solo quando parte davvero */
+.hero__video { opacity: 0; transition: opacity 1.2s var(--ease); }
+.hero__media.is-playing .hero__video { opacity: 1; }
 /* sfumatura che fonde la foto con l'avorio della sezione successiva */
 .hero__fade {
   position: absolute;
@@ -381,12 +407,14 @@ p { margin: 0; }
   opacity: 0;
   pointer-events: none;
 }
+/* sfumatura scura: titolo e pulsanti leggibili sopra le luci del video */
 .hero__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(30, 33, 18, .85) 0%, rgba(30, 33, 18, .55) 45%, rgba(30, 33, 18, .1) 75%),
-    linear-gradient(to bottom, rgba(30, 33, 18, .45), rgba(30, 33, 18, 0) 22%);
+    linear-gradient(to top, rgba(24, 26, 15, .9) 0%, rgba(24, 26, 15, .62) 42%, rgba(24, 26, 15, .22) 72%, rgba(24, 26, 15, .12) 100%),
+    linear-gradient(to right, rgba(24, 26, 15, .55) 0%, rgba(24, 26, 15, 0) 62%),
+    linear-gradient(to bottom, rgba(24, 26, 15, .5), rgba(24, 26, 15, 0) 22%);
 }
 .hero__content {
   position: relative;
@@ -487,7 +515,8 @@ p { margin: 0; }
 }
 
 /* Sequenza d'ingresso dell'hero: il titolo sale parola per parola */
-.js .hero__img { animation: hero-focus 1.8s var(--ease) both; }
+.js .hero__poster,
+.js .hero__video { animation: hero-focus 1.8s var(--ease) both; }
 .hero__title .w {
   display: inline-block;
   overflow: hidden;
@@ -520,8 +549,8 @@ p { margin: 0; }
   /* su telefono il testo occupa metà foto: velo più deciso in basso */
   .hero__veil {
     background:
-      linear-gradient(to top, rgba(30, 33, 18, .92) 0%, rgba(30, 33, 18, .72) 42%, rgba(30, 33, 18, .2) 72%, rgba(30, 33, 18, .05) 85%),
-      linear-gradient(to bottom, rgba(30, 33, 18, .5), rgba(30, 33, 18, 0) 20%);
+      linear-gradient(to top, rgba(24, 26, 15, .94) 0%, rgba(24, 26, 15, .76) 42%, rgba(24, 26, 15, .3) 72%, rgba(24, 26, 15, .15) 100%),
+      linear-gradient(to bottom, rgba(24, 26, 15, .55), rgba(24, 26, 15, 0) 20%);
   }
   .hero { --hero-fade: 96px; }
   .hero__content { padding-bottom: calc(var(--hero-fade) + 3.5rem); }
@@ -582,13 +611,78 @@ p { margin: 0; }
 
 .ristorante__media { position: relative; }
 .ristorante__media .arch { max-width: 460px; margin-inline: auto; }
+.ristorante__arco img { object-position: 40% 50%; }
 .ristorante__tavola { margin-top: 1.5rem; }
 .ristorante__tavola img { width: 100%; border-radius: 2px; }
-.ristorante__tavola figcaption,
-.eventi__torta figcaption {
+.ristorante__tavola figcaption {
   margin-top: .6rem;
   font-size: .9rem;
   font-style: italic;
+}
+
+/* La piscina */
+.piscina { background: var(--pietra); }
+.piscina__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+.piscina .arch { border-color: var(--oro); }
+.piscina__tramonto img { object-position: 50% 62%; }
+.momenti {
+  list-style: none;
+  max-width: 30rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--pietra-scura);
+}
+.momenti li {
+  position: relative;
+  padding: .95rem 0 .95rem 1.6rem;
+  border-bottom: 1px solid var(--pietra-scura);
+}
+.momenti li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 1.45rem;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--oro);
+  transform: rotate(45deg);
+}
+.momenti h3 {
+  font-family: var(--f-serif);
+  font-size: 1.3rem;
+  line-height: 1.25;
+}
+.momenti p { margin-top: .2rem; }
+.piscina__altre { margin-top: 2.5rem; }
+.piscina__foto figcaption {
+  margin-top: .6rem;
+  font-size: .9rem;
+  font-style: italic;
+}
+
+/* Carosello su telefono: si scorre di lato senza allungare la pagina */
+.carosello {
+  --h: clamp(230px, 68vw, 380px);
+  display: flex;
+  gap: 10px;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.carosello::-webkit-scrollbar { display: none; }
+.carosello > * { flex: none; width: min-content; scroll-snap-align: start; }
+.carosello img,
+.carosello .gallery__item img {
+  width: auto;
+  max-width: 84vw;
+  height: var(--h);
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 /* Eventi */
@@ -677,15 +771,6 @@ p { margin: 0; }
 }
 .forti__list p { margin-top: .25rem; }
 
-.eventi__torte {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: clamp(3rem, 6vw, 4.5rem);
-}
-.eventi__torta { min-width: 0; }
-.eventi__torta img { width: 100%; border-radius: 2px; }
-.eventi__torta figcaption { color: rgba(250, 246, 238, .75); }
 
 /* Come organizziamo */
 .passi__head { max-width: 40rem; }
@@ -782,6 +867,26 @@ p { margin: 0; }
 .g-alto { flex: 1.333 1 0; aspect-ratio: 640 / 480; }
 .g-rose { flex: 1.506 1 0; aspect-ratio: 720 / 478; }
 
+/* Galleria: carosello su telefono, griglia su computer */
+.galleria { background: var(--oliva-scura); color: rgba(250, 246, 238, .82); }
+.galleria__head { max-width: 40rem; }
+.galleria__grid { margin-top: 2.5rem; }
+.galleria__foto { background: rgba(250, 246, 238, .06); }
+.galleria__progress {
+  height: 1px;
+  margin-top: 1.25rem;
+  background: rgba(207, 178, 122, .25);
+  overflow: hidden;
+}
+.galleria__progress span {
+  display: block;
+  height: 100%;
+  background: var(--oro-chiaro);
+  transform: scaleX(.08);
+  transform-origin: left;
+}
+.galleria__azioni { margin-top: 1.75rem; }
+
 /* Richiesta */
 .richiesta__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
 .richiesta__box {
@@ -840,6 +945,18 @@ p { margin: 0; }
 .field__error:empty { display: none; }
 .field__hint { margin-top: .3rem; font-size: .88rem; color: var(--testo); }
 .req { color: var(--bordeaux); }
+.richiesta__wa {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--pietra-scura);
+}
+.richiesta__wa-testo {
+  margin-bottom: .75rem;
+  font-family: var(--f-serif);
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: var(--oliva);
+}
 .form__legend { grid-column: 1 / -1; font-size: .9rem; }
 .form__summary { margin-top: .75rem; font-size: .92rem; color: var(--bordeaux); }
 .form__summary:empty { display: none; }
@@ -977,10 +1094,9 @@ p { margin: 0; }
   color: var(--avorio);
 }
 .nozze__text p { margin-top: 1rem; max-width: 30em; }
-/* due foto alla stessa altezza, nelle loro proporzioni: la quadrata (414px) resta piccola */
+/* due foto verticali alla stessa altezza, nelle loro proporzioni (--r = larghezza / altezza) */
 .nozze__foto { display: flex; align-items: flex-start; gap: 12px; }
-.nozze__sposi { flex: 1.507 1 0; min-width: 0; max-width: 960px; }
-.nozze__auto { flex: 1 1 0; min-width: 0; max-width: 414px; }
+.nozze__foto figure { flex: var(--r, .75) 1 0; min-width: 0; }
 .nozze__foto img { width: 100%; border-radius: 2px; }
 .nozze__foto figcaption {
   margin-top: .6rem;
@@ -1001,6 +1117,8 @@ p { margin: 0; }
   max-width: 860px;
 }
 .piatto { aspect-ratio: 1 / 1; }
+.piatto--grande { grid-column: span 2; grid-row: span 2; }
+.piatto--largo { grid-column: span 2; aspect-ratio: 2 / 1; }
 
 /* Fasce fotografiche a tutta larghezza */
 .band {
@@ -1126,7 +1244,7 @@ p { margin: 0; }
   height: 20px;
   flex: none;
 }
-.chiama__azioni svg {
+.chiama__azioni svg:not(.ico-wa) {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -1161,8 +1279,10 @@ p { margin: 0; }
   0% { box-shadow: 0 0 0 0 rgba(123, 31, 44, .45); }
   70%, 100% { box-shadow: 0 0 0 16px rgba(123, 31, 44, 0); }
 }
+.chiama__wa { min-height: 56px; padding: 0 1.75rem; gap: .6rem; font-size: 1.05rem; }
 .chiama__copia { min-height: 56px; padding: 0 1.5rem; gap: .55rem; background: #FFFDF8; }
 .chiama__note { margin-top: 1rem; font-size: .98rem; }
+.chiama__note a { color: var(--bordeaux); font-weight: 500; text-underline-offset: 3px; white-space: nowrap; }
 
 /* Domande frequenti */
 .faq { background: var(--avorio); }
@@ -1208,24 +1328,20 @@ p { margin: 0; }
   bottom: 0;
   z-index: 45;
   display: grid;
-  grid-template-columns: 1fr 1.35fr;
+  grid-template-columns: 1fr 1fr;
   gap: .5rem;
   padding: .6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
-  background: rgba(47, 53, 32, .97);
+  background: var(--oliva-scura);
   box-shadow: 0 -8px 30px rgba(30, 33, 18, .25);
-  transform: translateY(110%);
-  transition: transform .4s var(--ease);
+  transform: translate3d(0, 0, 0);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s var(--ease), visibility 0s linear .3s;
 }
-.callbar.is-visible { transform: none; }
+.callbar.is-visible { opacity: 1; visibility: visible; transition: opacity .3s var(--ease), visibility 0s; }
 .callbar .btn { min-height: 50px; padding-inline: .75rem; }
-.callbar svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linejoin: round;
-}
+.callbar .ico-wa,
+.callbar .ico-tel { width: 18px; height: 18px; }
 .btn--light-solid { background: var(--avorio); color: var(--inchiostro); }
 .btn--light-solid:hover { background: #fff; }
 
@@ -1242,12 +1358,12 @@ p { margin: 0; }
 .footer__brand .logo__sub { font-size: .85rem; color: var(--oro-chiaro); }
 .footer__contacts p + p { margin-top: .25rem; }
 .footer__contacts a { color: var(--avorio); text-decoration: none; font-weight: 500; }
+.footer__links { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .9rem; }
 .footer__social {
   display: inline-flex;
   align-items: center;
   gap: .55rem;
   min-height: 44px;
-  margin-top: .9rem;
   padding: .4rem 1.1rem .4rem .8rem;
   border: 1px solid rgba(207, 178, 122, .5);
   border-radius: 999px;
@@ -1291,12 +1407,13 @@ p { margin: 0; }
   background: rgba(24, 26, 15, .96);
   opacity: 0;
   transition: opacity .3s var(--ease);
-  touch-action: pan-y;
+  touch-action: pinch-zoom;
 }
 .lightbox[hidden] { display: none; }
 .lightbox.is-open { opacity: 1; }
 
 .lightbox__figure {
+  transition: transform .3s var(--ease), opacity .3s var(--ease);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1461,6 +1578,7 @@ p { margin: 0; }
 
 @media (min-width: 600px) {
   .piatti { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .piatto--largo { grid-column: auto; aspect-ratio: 1 / 1; }
   .occasioni { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .choice__opts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
@@ -1468,16 +1586,13 @@ p { margin: 0; }
 @media (max-width: 420px) {
   .header .btn--small { padding-inline: .9rem; }
   .logo__script { font-size: 1.85rem; }
-  .hero__ctas .btn { flex: 1 1 100%; }
+  .hero__ctas .btn { flex: 1 1 0; padding-inline: 1rem; }
   .dove__btns .btn { flex: 1 1 auto; }
 }
 
 @media (min-width: 720px) {
   .form { grid-template-columns: 1fr 1fr; }
   .field--full { grid-column: 1 / -1; }
-  .eventi__torte { flex-direction: row; align-items: flex-start; }
-  .eventi__torta--cigni { flex: 1.305 1 0; }
-  .eventi__torta--oro { flex: 1.206 1 0; }
   .footer__grid { grid-template-columns: 1fr 1fr; align-items: end; }
 }
 
@@ -1512,7 +1627,6 @@ p { margin: 0; }
     gap: 4.5rem;
     align-items: center;
   }
-  .eventi__torte { gap: 2rem; }
 
   .passi__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem; }
   .passo { padding: 5rem 0 0; }
@@ -1531,6 +1645,46 @@ p { margin: 0; }
     gap: 5rem;
     align-items: center;
   }
+
+  .piscina__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 4.5rem;
+    align-items: center;
+  }
+  .piscina__tramonto { order: -1; }
+  /* tre foto alla stessa altezza, nelle loro proporzioni */
+  .piscina__altre {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 3.5rem 0 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .piscina__foto { width: auto; min-width: 0; }
+  .piscina__foto--l { flex: 1.5 1 0; }
+  .piscina__foto--p { flex: .75 1 0; }
+  .piscina__foto img { width: 100%; max-width: none; height: auto; }
+
+  /* griglia su 12 colonne: righe di una orizzontale e due verticali, l'ultima di tre orizzontali */
+  .galleria__head { max-width: none; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 4rem; align-items: end; }
+  .galleria__head .intro { margin-top: 0; }
+  .galleria__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 14px;
+    margin: 3rem 0 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .galleria__foto { width: auto; grid-column: span 3; }
+  .galleria__foto.g-l { grid-column: span 6; aspect-ratio: 3 / 2; }
+  .galleria__foto.g-t { grid-column: span 4; aspect-ratio: 3 / 2; }
+  .galleria__grid .galleria__foto img { position: absolute; inset: 0; width: 100%; max-width: none; height: 100%; border-radius: 0; }
+  .galleria__grid .is-extra { display: none; }
+  .galleria__grid.is-open .is-extra { display: block; animation: hero-in .7s var(--ease) both; animation-delay: calc(var(--n, 0) * 70ms); }
+  .galleria__progress { display: none; }
+  .galleria__azioni { margin-top: 2.25rem; text-align: center; }
   .band { min-height: clamp(420px, 70vh, 640px); }
 
   .faq__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 5rem; align-items: start; }
@@ -1567,5 +1721,7 @@ p { margin: 0; }
   .chiama__btn::before { animation: none; display: none; }
   .btn--contattaci { animation: none; }
   .js .band__text { opacity: 1; transform: none; filter: none; }
-  .js .hero__img { animation: none; }
+  .js .hero__poster,
+  .js .hero__video { animation: none; }
+  .hero__video { display: none; }
 }
