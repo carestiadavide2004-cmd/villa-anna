@@ -559,6 +559,40 @@ p { margin: 0; }
 }
 @keyframes hero-in-x { from { opacity: 0; transform: translate(50%, 18px); } to { opacity: 1; transform: translateX(50%); } }
 
+/* Telefono: il video libero nella metà alta, testo compatto in basso */
+@media (max-width: 767px) {
+  .hero { --hero-fade: 64px; }
+  /* sfumatura solo dietro al testo; misure in px perché il blocco di testo ha altezza fissa */
+  .hero__veil {
+    background: linear-gradient(to top,
+      rgba(24, 26, 15, .9) 0,
+      rgba(24, 26, 15, .76) 150px,
+      rgba(24, 26, 15, .58) 260px,
+      rgba(24, 26, 15, .36) 320px,
+      rgba(24, 26, 15, 0) 390px);
+  }
+  .header:not(.is-solid) .logo { text-shadow: 0 1px 10px rgba(0, 0, 0, .45); }
+  .hero__content { padding-bottom: calc(var(--hero-fade) + 1.25rem); }
+  .hero__title { font-size: clamp(1.9rem, 8.4vw, 2.25rem); }
+  .hero__lead { margin-top: .6rem; font-size: .95rem; line-height: 1.5; }
+  .hero__lead-extra { display: none; }
+  .hero__ctas { flex-wrap: nowrap; gap: .6rem; margin-top: 1rem; }
+  .hero__ctas .btn { flex: 1 1 0; min-height: 44px; padding: .5rem .9rem; gap: .45rem; font-size: .95rem; letter-spacing: .02em; }
+  .hero__ctas .btn .ico-tel,
+  .hero__ctas .btn .ico-wa { width: 17px; height: 17px; }
+  .badge--hero {
+    min-height: 32px;
+    margin-top: .75rem;
+    padding: .25rem .75rem .25rem .65rem;
+    gap: .45rem;
+    border-color: rgba(207, 178, 122, .4);
+    font-size: .8rem;
+    white-space: nowrap;
+  }
+  .badge--hero .badge__stars { font-size: .7rem; }
+  .scroll-hint { display: none; }
+}
+
 /* ---------- Sezioni ---------- */
 
 .section { padding-block: clamp(4.5rem, 10vw, 8rem); overflow-x: clip; }
