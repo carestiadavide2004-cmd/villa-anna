@@ -355,7 +355,7 @@ p { margin: 0; }
 /* ---------- Hero ---------- */
 
 .hero {
-  --hero-fade: clamp(110px, 20vh, 200px);
+  --hero-fade: clamp(56px, 8vh, 88px); /* corta: non copre scalinata e tappeto */
   position: relative;
   min-height: 100vh;
   min-height: 100svh;
@@ -370,18 +370,16 @@ p { margin: 0; }
   inset: 0;
   will-change: transform;
 }
-.hero__poster,
-.hero__video {
+/* la facciata intera, con scalinata e tappeto rosso in basso a destra */
+.hero__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 45% 55%;
+  object-position: 62% 85%;
+  transform-origin: 62% 80%;
 }
-/* il video compare sopra il poster solo quando parte davvero */
-.hero__video { opacity: 0; transition: opacity 1.2s var(--ease); }
-.hero__media.is-playing .hero__video { opacity: 1; }
 /* sfumatura che fonde la foto con l'avorio della sezione successiva */
 .hero__fade {
   position: absolute;
@@ -407,14 +405,13 @@ p { margin: 0; }
   opacity: 0;
   pointer-events: none;
 }
-/* sfumatura scura più leggera: piena solo in basso, dove ci sono testo e pulsanti */
+/* sfumatura scura solo dietro al testo (a sinistra, sopra il cespuglio) e sotto l'header */
 .hero__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(24, 26, 15, .86) 0%, rgba(24, 26, 15, .55) 30%, rgba(24, 26, 15, .16) 58%, rgba(24, 26, 15, 0) 80%),
-    linear-gradient(to right, rgba(24, 26, 15, .42) 0%, rgba(24, 26, 15, 0) 55%),
-    linear-gradient(to bottom, rgba(24, 26, 15, .42), rgba(24, 26, 15, 0) 18%);
+    radial-gradient(ellipse 36% 50% at 23% 64%, rgba(24, 26, 15, .76) 0%, rgba(24, 26, 15, .6) 48%, rgba(24, 26, 15, .26) 78%, rgba(24, 26, 15, 0) 100%),
+    linear-gradient(to bottom, rgba(24, 26, 15, .42) 0, rgba(24, 26, 15, 0) 130px);
 }
 .hero__content {
   position: relative;
@@ -516,8 +513,8 @@ p { margin: 0; }
 }
 
 /* Sequenza d'ingresso dell'hero: il titolo sale parola per parola */
-/* solo una dissolvenza breve: nessun filtro che ammorbidisca il video */
-.js .hero__poster { animation: hero-in-media .8s var(--ease) both; }
+/* dissolvenza breve e zoom lento all'indietro: la foto finisce nitida, a grandezza naturale */
+.js .hero__img { animation: hero-in-media .8s var(--ease) both, hero-zoom 18s cubic-bezier(.2, .6, .35, 1) both; }
 .hero__title .w {
   display: inline-block;
   overflow: hidden;
@@ -540,31 +537,30 @@ p { margin: 0; }
 .js .scroll-hint { animation-delay: 1.3s; }
 
 @keyframes hero-in-media { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hero-zoom { from { transform: scale(1.06); } to { transform: none; } }
 @keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
 @keyframes hero-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 959px) {
-  /* su telefono il testo occupa metà foto: velo più deciso in basso */
-  .hero__veil {
-    background:
-      linear-gradient(to top, rgba(24, 26, 15, .9) 0%, rgba(24, 26, 15, .72) 34%, rgba(24, 26, 15, .3) 56%, rgba(24, 26, 15, 0) 76%),
-      linear-gradient(to bottom, rgba(24, 26, 15, .45), rgba(24, 26, 15, 0) 18%);
-  }
-  .hero { --hero-fade: 96px; }
+  .hero { --hero-fade: 56px; }
   .hero__content { padding-bottom: calc(var(--hero-fade) + 3.5rem); }
   .scroll-hint { right: 50%; transform: translateX(50%); bottom: calc(var(--hero-fade) - .5rem); flex-direction: row; }
   .js .scroll-hint { animation-name: hero-in-x; }
   .scroll-hint__text { display: none; }
   .scroll-hint__line { height: 44px; }
 }
+/* Computer: blocco di testo compatto sopra il cespuglio, scalinata e tappeto liberi a destra */
+@media (min-width: 960px) {
+  .hero__title { max-width: 8em; font-size: clamp(3rem, 4.6vw, 4rem); }
+  .hero__lead { max-width: 26em; }
+}
 @keyframes hero-in-x { from { opacity: 0; transform: translate(50%, 18px); } to { opacity: 1; transform: translateX(50%); } }
 
-/* Telefono: testo in alto sopra il paese e il bosco, piscina e villa libere in basso */
-@media (max-width: 767px) {
+/* Telefono e tablet in verticale: testo in alto sopra cielo e tetto, scalinata e tappeto liberi in basso */
+@media (max-width: 767px), (max-width: 959px) and (orientation: portrait) {
   .hero { --hero-fade: 36px; align-items: flex-start; }
-  /* il video verticale resta ancorato in basso, con la piscina un po' a sinistra */
-  .hero__poster,
-  .hero__video { object-position: 35% 100%; }
+  /* taglio verticale centrato su scalinata e tappeto, ancorato in basso */
+  .hero__img { object-position: 50% 100%; transform-origin: 50% 85%; }
   /* sfumatura solo in alto, dietro al testo; misure in px perché il blocco di testo ha altezza fissa */
   .hero__veil {
     background: linear-gradient(to bottom,
@@ -595,7 +591,7 @@ p { margin: 0; }
   .badge--hero .badge__stars { font-size: .7rem; }
   .scroll-hint { display: none; }
 }
-/* telefoni bassi: senza la frase, così la metà bassa del video resta libera */
+/* telefoni bassi: senza la frase, così la metà bassa della foto resta libera */
 @media (max-width: 767px) and (max-height: 760px) {
   .hero__lead { display: none; }
   .hero__veil {
@@ -1879,6 +1875,5 @@ p { margin: 0; }
   .chiama__btn::before { animation: none; display: none; }
   .btn--contattaci { animation: none; }
   .js .band__text { opacity: 1; transform: none; filter: none; }
-  .js .hero__poster { animation: none; }
-  .hero__video { display: none; }
+  .js .hero__img { animation: none; }
 }

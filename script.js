@@ -57,38 +57,6 @@
 
   function isDesktop() { return window.innerWidth >= 960; }
 
-  /* ---------- Video del drone nell'apertura ---------- */
-  // con "riduci movimento" o il risparmio dati resta solo il poster
-  var heroVideo = document.querySelector('.hero__video');
-  var saveData = navigator.connection && navigator.connection.saveData;
-  if (heroVideo && !reduceMotion && !saveData) {
-    var playVideo = function () {
-      var p = heroVideo.play();
-      if (p && p.catch) p.catch(function () {}); // autoplay bloccato: resta il poster
-    };
-    // telefono in verticale: video verticale; computer e tablet: video 1280
-    var phoneMq = window.matchMedia('(max-width: 767px) and (orientation: portrait)');
-    var pickVideo = function () {
-      var kind = phoneMq.matches ? 'phone' : 'desktop';
-      var src = heroVideo.getAttribute('data-src-' + kind);
-      if (heroVideo.getAttribute('src') === src) return;
-      heroVideo.poster = heroVideo.getAttribute('data-poster-' + kind);
-      heroVideo.src = src;
-      playVideo();
-    };
-    heroVideo.muted = true;
-    heroVideo.addEventListener('playing', function () { heroMedia.classList.add('is-playing'); }, { once: true });
-    pickVideo();
-    if (phoneMq.addEventListener) phoneMq.addEventListener('change', pickVideo);
-    // fuori schermo il video si ferma: meno batteria e meno dati
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) playVideo();
-        else heroVideo.pause();
-      }).observe(hero);
-    }
-  }
-
   function updateEffects() {
     ticking = false;
     var vh = window.innerHeight;
@@ -98,7 +66,7 @@
       var h = hero.offsetHeight;
       var p = Math.min(Math.max(window.scrollY / h, 0), 1);
       if (p < 1) {
-        // solo spostamento: nessuna sfocatura sul video
+        // solo spostamento: nessuna sfocatura sulla foto
         heroMedia.style.transform = 'translate3d(0,' + (p * h * (desktop ? 0.3 : 0.15)).toFixed(1) + 'px,0)';
         heroShade.style.opacity = (p * 0.45).toFixed(3);
       }

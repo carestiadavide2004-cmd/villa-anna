@@ -33,9 +33,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost:wght@400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="img/video/drone-notte-poster-verticale-hq.webp" type="image/webp" media="(max-width: 767px) and (orientation: portrait)">
-  <link rel="preload" as="image" href="img/video/drone-notte-poster-hq.webp" type="image/webp" media="not all and (max-width: 767px) and (orientation: portrait)">
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="preload" as="image" href="img/villa-facciata-telefono.webp" type="image/webp" media="(max-width: 767px), (max-width: 959px) and (orientation: portrait)" fetchpriority="high">
+  <link rel="preload" as="image" href="img/villa-facciata-computer.webp" type="image/webp" media="(min-width: 960px), (min-width: 768px) and (orientation: landscape)" fetchpriority="high">
+  <link rel="stylesheet" href="style.css?v=14">
   <script>document.documentElement.classList.add('js');</script>
 
   <script type="application/ld+json">
@@ -101,12 +101,9 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__media">
         <picture>
-          <source media="(max-width: 767px) and (orientation: portrait)" srcset="img/video/drone-notte-poster-verticale-hq.webp" type="image/webp" width="406" height="720">
-          <img class="hero__poster" src="img/video/drone-notte-poster-hq.webp" alt="Villa Anna di notte vista dal drone: la piscina illuminata, i gazebo e le luci del giardino" width="1280" height="720" fetchpriority="high">
+          <source media="(max-width: 767px), (max-width: 959px) and (orientation: portrait)" srcset="img/villa-facciata-telefono.webp" type="image/webp" width="1126" height="1536">
+          <img class="hero__img" src="img/villa-facciata-computer.webp" alt="La facciata gialla di Villa Anna con la scalinata bianca e il tappeto rosso, tra fiori e alberi" width="1920" height="1440" fetchpriority="high">
         </picture>
-        <video class="hero__video" autoplay muted loop playsinline preload="none" poster="img/video/drone-notte-poster-hq.webp" aria-hidden="true" tabindex="-1"
-          data-src-phone="img/video/drone-notte-verticale-hq.mp4" data-poster-phone="img/video/drone-notte-poster-verticale-hq.webp"
-          data-src-desktop="img/video/drone-notte-1280-hq.mp4" data-poster-desktop="img/video/drone-notte-poster-hq.webp"></video>
       </div>
       <div class="hero__veil" aria-hidden="true"></div>
       <div class="hero__shade" aria-hidden="true"></div>
@@ -725,6 +722,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
