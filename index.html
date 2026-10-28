@@ -15,16 +15,16 @@
   <meta property="og:title" content="Villa Anna – Ristorante La Teleferica">
   <meta property="og:description" content="Cucina italiana e cerimonie in una villa con giardino, fontane e gazebo a Lettomanoppello (PE).">
   <meta property="og:url" content="https://villaannalateleferica.it/">
-  <meta property="og:image" content="https://villaannalateleferica.it/img/og.jpg">
-  <meta property="og:image:secure_url" content="https://villaannalateleferica.it/img/og.jpg">
+  <meta property="og:image" content="https://villaannalateleferica.it/img/og.jpg?v=2">
+  <meta property="og:image:secure_url" content="https://villaannalateleferica.it/img/og.jpg?v=2">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="La piscina di Villa Anna al tramonto, con le montagne sullo sfondo">
+  <meta property="og:image:alt" content="La piscina di Villa Anna sotto un cielo di tramonto infuocato, con le montagne all'orizzonte">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Villa Anna – Ristorante La Teleferica">
   <meta name="twitter:description" content="Cucina italiana e cerimonie in una villa con giardino, fontane e gazebo a Lettomanoppello (PE).">
-  <meta name="twitter:image" content="https://villaannalateleferica.it/img/og.jpg">
+  <meta name="twitter:image" content="https://villaannalateleferica.it/img/og.jpg?v=2">
 
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
@@ -33,9 +33,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost:wght@400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="img/villa-facciata-telefono.webp" type="image/webp" media="(max-width: 767px), (max-width: 959px) and (orientation: portrait)" fetchpriority="high">
-  <link rel="preload" as="image" href="img/villa-facciata-computer.webp" type="image/webp" media="(min-width: 960px), (min-width: 768px) and (orientation: landscape)" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="preload" as="image" href="img/villa-dall-alto-sera-telefono.webp" type="image/webp" media="(max-width: 767px), (max-width: 959px) and (orientation: portrait)" fetchpriority="high">
+  <link rel="preload" as="image" href="img/villa-dall-alto-sera-1280.webp" type="image/webp" media="(min-width: 960px), (min-width: 768px) and (orientation: landscape)" fetchpriority="high">
+  <link rel="stylesheet" href="style.css?v=15">
   <script>document.documentElement.classList.add('js');</script>
 
   <script type="application/ld+json">
@@ -101,8 +101,8 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__media">
         <picture>
-          <source media="(max-width: 767px), (max-width: 959px) and (orientation: portrait)" srcset="img/villa-facciata-telefono.webp" type="image/webp" width="1126" height="1536">
-          <img class="hero__img" src="img/villa-facciata-computer.webp" alt="La facciata gialla di Villa Anna con la scalinata bianca e il tappeto rosso, tra fiori e alberi" width="1920" height="1440" fetchpriority="high">
+          <source media="(max-width: 767px), (max-width: 959px) and (orientation: portrait)" srcset="img/villa-dall-alto-sera-telefono.webp" type="image/webp" width="860" height="853">
+          <img class="hero__img" src="img/villa-dall-alto-sera-1280.webp" alt="Villa Anna vista dall'alto, di sera, con le luci accese nel giardino, i balconi e il portico" width="1280" height="853" fetchpriority="high">
         </picture>
       </div>
       <div class="hero__veil" aria-hidden="true"></div>
@@ -162,10 +162,15 @@
 
     <!-- LA PISCINA -->
     <section class="section piscina" id="piscina" aria-labelledby="piscina-title">
+      <div class="band band--tramonto">
+        <div class="band__media">
+          <img src="img/piscina-tramonto-infuocato-1024.webp" srcset="img/piscina-tramonto-infuocato-512.webp 512w, img/piscina-tramonto-infuocato-1024.webp 1024w" sizes="100vw" alt="La piscina di Villa Anna sotto un cielo di tramonto infuocato, con le luci accese e le montagne all'orizzonte" width="1024" height="682" loading="lazy" decoding="async">
+        </div>
+        <h2 class="band__text" id="piscina-title">Il tramonto a bordo piscina</h2>
+      </div>
       <div class="wrap">
         <div class="piscina__grid">
           <div class="piscina__text reveal">
-            <h2 class="title" id="piscina-title">La piscina</h2>
             <p class="intro">Dalla piscina lo sguardo arriva fino alle montagne. Al tramonto il cielo si accende di colori: è il momento più bello per un brindisi a bordo vasca.</p>
             <ul class="momenti">
               <li>
@@ -182,12 +187,16 @@
               </li>
             </ul>
           </div>
-          <figure class="arch arch--wide piscina__tramonto reveal">
-            <img src="img/piscina-tramonto-panorama-montagne-640.webp" srcset="img/piscina-tramonto-panorama-montagne-640.webp 640w, img/piscina-tramonto-panorama-montagne-1280.webp 1280w" sizes="(min-width: 960px) 54vw, 92vw" alt="La piscina di Villa Anna al tramonto, con i gazebo, le palme e le montagne all'orizzonte" width="1280" height="853" loading="lazy" decoding="async">
+          <figure class="arch arch--wide piscina__tavoli reveal">
+            <img src="img/piscina-tramonto-tavoli-640.webp" srcset="img/piscina-tramonto-tavoli-640.webp 640w, img/piscina-tramonto-tavoli-1280.webp 1280w" sizes="54vw" alt="La piscina al tramonto con i tavoli apparecchiati per un ricevimento, i lettini e le montagne all'orizzonte" width="1280" height="988" loading="lazy" decoding="async">
           </figure>
         </div>
 
         <div class="piscina__altre carosello reveal">
+          <figure class="piscina__foto solo-telefono">
+            <img src="img/piscina-tramonto-tavoli-640.webp" srcset="img/piscina-tramonto-tavoli-640.webp 640w, img/piscina-tramonto-tavoli-1280.webp 1280w" sizes="84vw" alt="La piscina al tramonto con i tavoli apparecchiati per un ricevimento, i lettini e le montagne all'orizzonte" width="1280" height="988" loading="lazy" decoding="async">
+            <figcaption>Aperitivi e ricevimenti a bordo piscina</figcaption>
+          </figure>
           <figure class="piscina__foto piscina__foto--l">
             <img src="img/piscina-tramonto-palma-480.webp" srcset="img/piscina-tramonto-palma-480.webp 480w, img/piscina-tramonto-palma-960.webp 960w" sizes="(min-width: 960px) 38vw, 84vw" alt="Il sole che tramonta tra le foglie di una palma, riflesso nell'acqua della piscina" width="960" height="640" loading="lazy" decoding="async">
             <figcaption>Il tramonto tra le palme</figcaption>
@@ -251,6 +260,10 @@
             <p>Il sì sotto il gazebo, le foto in giardino, il brindisi e il taglio della torta: tutta la giornata in un unico luogo, senza spostamenti.</p>
           </div>
           <div class="nozze__foto scorre reveal" id="nozze-foto" aria-label="Foto dei matrimoni a Villa Anna" data-scorre>
+            <figure>
+              <img src="img/scalinata-tappeto-rosso-480.webp" srcset="img/scalinata-tappeto-rosso-480.webp 480w, img/scalinata-tappeto-rosso-960.webp 960w" sizes="(min-width: 960px) 30vw, 60vw" alt="La scalinata bianca di Villa Anna con il tappeto rosso, davanti al portico della villa" width="960" height="1280" loading="lazy" decoding="async">
+              <figcaption>Il tappeto rosso sulla scalinata della villa</figcaption>
+            </figure>
             <figure class="solo-telefono">
               <img src="img/gazebo-cerimonie.jpg" alt="Il gazebo bianco in giardino allestito per una cerimonia, con tappeto rosso, lanterne e sedie rivestite" width="1600" height="1200" loading="lazy" decoding="async">
               <figcaption>Il gazebo allestito per la cerimonia</figcaption>
@@ -416,12 +429,12 @@
       <div class="wrap">
         <div class="galleria__head reveal">
           <h2 class="title title--light" id="galleria-title">Galleria</h2>
-          <p class="intro intro--light">La piscina al tramonto, le sale, i buffet e le feste: Villa Anna in dodici foto. Tocca una foto per ingrandirla.</p>
+          <p class="intro intro--light">La piscina al tramonto, le sale, i buffet e le feste: Villa Anna in quindici foto. Tocca una foto per ingrandirla.</p>
         </div>
 
         <div class="galleria__grid carosello reveal" id="galleria-foto" data-gallery="Galleria">
           <button class="gallery__item galleria__foto g-l" type="button">
-            <img src="img/piscina-tramonto-panorama-montagne-640.webp" srcset="img/piscina-tramonto-panorama-montagne-640.webp 640w, img/piscina-tramonto-panorama-montagne-1280.webp 1280w" sizes="(min-width: 960px) 46vw, 84vw" alt="La piscina di Villa Anna al tramonto, con i gazebo, le palme e le montagne all'orizzonte" width="1280" height="853" loading="lazy" decoding="async" data-full="img/piscina-tramonto-panorama-montagne-1280.webp">
+            <img src="img/piscina-tramonto-infuocato-512.webp" srcset="img/piscina-tramonto-infuocato-512.webp 512w, img/piscina-tramonto-infuocato-1024.webp 1024w" sizes="(min-width: 960px) 46vw, 84vw" alt="La piscina di Villa Anna sotto un cielo di tramonto infuocato, con le luci accese e le montagne all'orizzonte" width="1024" height="682" loading="lazy" decoding="async" data-full="img/piscina-tramonto-infuocato-1024.webp">
           </button>
           <button class="gallery__item galleria__foto g-p" type="button">
             <img src="img/tavola-apparecchiata-piscina-tramonto-480.webp" srcset="img/tavola-apparecchiata-piscina-tramonto-480.webp 480w, img/tavola-apparecchiata-piscina-tramonto-960.webp 960w" sizes="(min-width: 960px) 23vw, 50vw" alt="Una tavola apparecchiata con i fiori a bordo piscina, al tramonto" width="960" height="1280" loading="lazy" decoding="async" data-full="img/tavola-apparecchiata-piscina-tramonto-960.webp">
@@ -436,10 +449,10 @@
             <img src="img/antipasto-tartare-capesante-480.webp" srcset="img/antipasto-tartare-capesante-480.webp 480w, img/antipasto-tartare-capesante-960.webp 960w" sizes="(min-width: 960px) 23vw, 50vw" alt="Antipasto di tartare servita nelle conchiglie di capasanta" width="960" height="1280" loading="lazy" decoding="async" data-full="img/antipasto-tartare-capesante-960.webp">
           </button>
           <button class="gallery__item galleria__foto g-l" type="button">
-            <img src="img/sala-interna-lampadari-480.webp" srcset="img/sala-interna-lampadari-480.webp 480w, img/sala-interna-lampadari-960.webp 960w" sizes="(min-width: 960px) 46vw, 84vw" alt="La sala interna con i lampadari di cristallo, i tavoli apparecchiati e i fiori" width="960" height="640" loading="lazy" decoding="async" data-full="img/sala-interna-lampadari-960.webp">
+            <img src="img/piscina-tramonto-tavoli-640.webp" srcset="img/piscina-tramonto-tavoli-640.webp 640w, img/piscina-tramonto-tavoli-1280.webp 1280w" sizes="(min-width: 960px) 46vw, 84vw" alt="La piscina al tramonto con i tavoli apparecchiati per un ricevimento, i lettini e le montagne all'orizzonte" width="1280" height="988" loading="lazy" decoding="async" data-full="img/piscina-tramonto-tavoli-1280.webp">
           </button>
-          <button class="gallery__item galleria__foto g-l is-extra" type="button" style="--n: 0">
-            <img src="img/buffet-sotto-gazebo-640.webp" srcset="img/buffet-sotto-gazebo-640.webp 640w, img/buffet-sotto-gazebo-1280.webp 1280w" sizes="(min-width: 960px) 46vw, 84vw" alt="Il buffet sotto il gazebo bianco in giardino, con gli ospiti attorno ai tavoli" width="1280" height="853" loading="lazy" decoding="async" data-full="img/buffet-sotto-gazebo-1280.webp">
+          <button class="gallery__item galleria__foto g-l" type="button" style="--n: 0">
+            <img src="img/villa-dall-alto-sera-640.webp" srcset="img/villa-dall-alto-sera-640.webp 640w, img/villa-dall-alto-sera-1280.webp 1280w" sizes="(min-width: 960px) 46vw, 84vw" alt="Villa Anna vista dall'alto, di sera, con le luci accese nel giardino, i balconi e il portico" width="1280" height="853" loading="lazy" decoding="async" data-full="img/villa-dall-alto-sera-1280.webp">
           </button>
           <button class="gallery__item galleria__foto g-p is-extra" type="button" style="--n: 1">
             <img src="img/tableau-just-married-480.webp" srcset="img/tableau-just-married-480.webp 480w, img/tableau-just-married-960.webp 960w" sizes="(min-width: 960px) 23vw, 50vw" alt="Il tableau degli sposi con la scritta Just Married, fiori bianchi e i nomi dei tavoli" width="960" height="1280" loading="lazy" decoding="async" data-full="img/tableau-just-married-960.webp">
@@ -448,18 +461,27 @@
             <img src="img/taglio-torta-notte-fontane-dall-alto-480.webp" srcset="img/taglio-torta-notte-fontane-dall-alto-480.webp 480w, img/taglio-torta-notte-fontane-dall-alto-960.webp 960w" sizes="(min-width: 960px) 23vw, 50vw" alt="Il taglio della torta di sera, visto dall'alto, con le fontane luminose accanto alla piscina" width="960" height="1280" loading="lazy" decoding="async" data-full="img/taglio-torta-notte-fontane-dall-alto-960.webp">
           </button>
           <button class="gallery__item galleria__foto g-t is-extra" type="button" style="--n: 3">
-            <img src="img/piscina-tramonto-palma-480.webp" srcset="img/piscina-tramonto-palma-480.webp 480w, img/piscina-tramonto-palma-960.webp 960w" sizes="(min-width: 960px) 31vw, 84vw" alt="Il sole che tramonta tra le foglie di una palma, riflesso nell'acqua della piscina" width="960" height="640" loading="lazy" decoding="async" data-full="img/piscina-tramonto-palma-960.webp">
+            <img src="img/sala-interna-lampadari-480.webp" srcset="img/sala-interna-lampadari-480.webp 480w, img/sala-interna-lampadari-960.webp 960w" sizes="(min-width: 960px) 31vw, 84vw" alt="La sala interna con i lampadari di cristallo, i tavoli apparecchiati e i fiori" width="960" height="640" loading="lazy" decoding="async" data-full="img/sala-interna-lampadari-960.webp">
           </button>
           <button class="gallery__item galleria__foto g-t is-extra" type="button" style="--n: 4">
-            <img src="img/gazebo-piscina-sera-luci-480.webp" srcset="img/gazebo-piscina-sera-luci-480.webp 480w, img/gazebo-piscina-sera-luci-960.webp 960w" sizes="(min-width: 960px) 31vw, 84vw" alt="Il gazebo con le tende bianche accanto alla piscina illuminata, di sera" width="960" height="640" loading="lazy" decoding="async" data-full="img/gazebo-piscina-sera-luci-960.webp">
+            <img src="img/buffet-sotto-gazebo-640.webp" srcset="img/buffet-sotto-gazebo-640.webp 640w, img/buffet-sotto-gazebo-1280.webp 1280w" sizes="(min-width: 960px) 31vw, 84vw" alt="Il buffet sotto il gazebo bianco in giardino, con gli ospiti attorno ai tavoli" width="1280" height="853" loading="lazy" decoding="async" data-full="img/buffet-sotto-gazebo-1280.webp">
           </button>
           <button class="gallery__item galleria__foto g-t is-extra" type="button" style="--n: 5">
+            <img src="img/piscina-tramonto-palma-480.webp" srcset="img/piscina-tramonto-palma-480.webp 480w, img/piscina-tramonto-palma-960.webp 960w" sizes="(min-width: 960px) 31vw, 84vw" alt="Il sole che tramonta tra le foglie di una palma, riflesso nell'acqua della piscina" width="960" height="640" loading="lazy" decoding="async" data-full="img/piscina-tramonto-palma-960.webp">
+          </button>
+          <button class="gallery__item galleria__foto g-t is-extra" type="button" style="--n: 6">
+            <img src="img/gazebo-piscina-sera-luci-480.webp" srcset="img/gazebo-piscina-sera-luci-480.webp 480w, img/gazebo-piscina-sera-luci-960.webp 960w" sizes="(min-width: 960px) 31vw, 84vw" alt="Il gazebo con le tende bianche accanto alla piscina illuminata, di sera" width="960" height="640" loading="lazy" decoding="async" data-full="img/gazebo-piscina-sera-luci-960.webp">
+          </button>
+          <button class="gallery__item galleria__foto g-t is-extra" type="button" style="--n: 7">
             <img src="img/torta-arco-piscina-notte-480.webp" srcset="img/torta-arco-piscina-notte-480.webp 480w, img/torta-arco-piscina-notte-960.webp 960w" sizes="(min-width: 960px) 31vw, 84vw" alt="La torta nuziale sotto l'arco di fiori a bordo piscina, di sera, con le luci accese" width="960" height="588" loading="lazy" decoding="async" data-full="img/torta-arco-piscina-notte-960.webp">
+          </button>
+          <button class="gallery__item galleria__foto g-t is-extra" type="button" style="--n: 8">
+            <img src="img/villa-facciata-tappeto-rosso-640.webp" srcset="img/villa-facciata-tappeto-rosso-640.webp 640w, img/villa-facciata-tappeto-rosso-1280.webp 1280w" sizes="(min-width: 960px) 31vw, 84vw" alt="La facciata gialla di Villa Anna con la scalinata bianca e il tappeto rosso, tra fiori e alberi" width="1280" height="960" loading="lazy" decoding="async" data-full="img/villa-facciata-tappeto-rosso-1280.webp">
           </button>
         </div>
         <div class="galleria__progress" aria-hidden="true"><span></span></div>
         <div class="galleria__azioni">
-          <button class="btn btn--gold" type="button" id="galleria-tutte" aria-controls="galleria-foto">Vedi tutte le foto (12)</button>
+          <button class="btn btn--gold" type="button" id="galleria-tutte" aria-controls="galleria-foto">Vedi tutte le foto (15)</button>
         </div>
       </div>
     </section>

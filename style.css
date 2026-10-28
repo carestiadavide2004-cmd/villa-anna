@@ -370,15 +370,15 @@ p { margin: 0; }
   inset: 0;
   will-change: transform;
 }
-/* la facciata intera, con scalinata e tappeto rosso in basso a destra */
+/* la villa vista dall'alto, di sera: tetto, balconi e portico a sinistra, alberi scuri a destra */
 .hero__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 85%;
-  transform-origin: 62% 80%;
+  object-position: 80% 40%;
+  transform-origin: 40% 45%;
 }
 /* sfumatura che fonde la foto con l'avorio della sezione successiva */
 .hero__fade {
@@ -405,12 +405,12 @@ p { margin: 0; }
   opacity: 0;
   pointer-events: none;
 }
-/* sfumatura scura solo dietro al testo (a sinistra, sopra il cespuglio) e sotto l'header */
+/* sfumatura scura solo dietro al testo (a destra, sopra gli alberi) e sotto l'header */
 .hero__veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 36% 50% at 23% 64%, rgba(24, 26, 15, .76) 0%, rgba(24, 26, 15, .6) 48%, rgba(24, 26, 15, .26) 78%, rgba(24, 26, 15, 0) 100%),
+    radial-gradient(ellipse 40% 64% at 86% 48%, rgba(24, 26, 15, .7) 0%, rgba(24, 26, 15, .52) 45%, rgba(24, 26, 15, .2) 76%, rgba(24, 26, 15, 0) 100%),
     linear-gradient(to bottom, rgba(24, 26, 15, .42) 0, rgba(24, 26, 15, 0) 130px);
 }
 .hero__content {
@@ -513,7 +513,7 @@ p { margin: 0; }
 }
 
 /* Sequenza d'ingresso dell'hero: il titolo sale parola per parola */
-/* dissolvenza breve e zoom lento all'indietro: la foto finisce nitida, a grandezza naturale */
+/* dissolvenza breve e zoom leggerissimo all'indietro: la foto finisce nitida, a grandezza naturale */
 .js .hero__img { animation: hero-in-media .8s var(--ease) both, hero-zoom 18s cubic-bezier(.2, .6, .35, 1) both; }
 .hero__title .w {
   display: inline-block;
@@ -537,7 +537,7 @@ p { margin: 0; }
 .js .scroll-hint { animation-delay: 1.3s; }
 
 @keyframes hero-in-media { from { opacity: 0; } to { opacity: 1; } }
-@keyframes hero-zoom { from { transform: scale(1.06); } to { transform: none; } }
+@keyframes hero-zoom { from { transform: scale(1.04); } to { transform: none; } }
 @keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
 @keyframes hero-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
@@ -549,27 +549,37 @@ p { margin: 0; }
   .scroll-hint__text { display: none; }
   .scroll-hint__line { height: 44px; }
 }
-/* Computer: blocco di testo compatto sopra il cespuglio, scalinata e tappeto liberi a destra */
-@media (min-width: 960px) {
-  .hero__title { max-width: 8em; font-size: clamp(3rem, 4.6vw, 4rem); }
-  .hero__lead { max-width: 26em; }
+/* Computer e tablet in orizzontale: villa libera a sinistra, testo in una colonna a destra sopra gli alberi */
+@media (min-width: 960px), (min-width: 768px) and (orientation: landscape) {
+  .hero { align-items: center; }
+  .hero__content {
+    display: grid;
+    grid-template-columns: minmax(0, max(19rem, min(27rem, 30vw)));
+    justify-content: end;
+    max-width: none;
+    padding-top: calc(var(--header-h) + 1.5rem);
+    padding-bottom: calc(var(--hero-fade) + 1.5rem);
+  }
+  .hero__title { max-width: none; font-size: clamp(2.4rem, 3.5vw, 3.5rem); }
+  .hero__lead { max-width: none; font-size: 1.05rem; }
+  .hero__ctas { margin-top: 1.6rem; }
+  .badge--hero { justify-self: start; }
 }
 @keyframes hero-in-x { from { opacity: 0; transform: translate(50%, 18px); } to { opacity: 1; transform: translateX(50%); } }
 
-/* Telefono e tablet in verticale: testo in alto sopra cielo e tetto, scalinata e tappeto liberi in basso */
+/* Telefono e tablet in verticale: testo in alto sul fondo scuro, la villa sotto, libera */
 @media (max-width: 767px), (max-width: 959px) and (orientation: portrait) {
-  .hero { --hero-fade: 36px; align-items: flex-start; }
-  /* taglio verticale centrato su scalinata e tappeto, ancorato in basso */
-  .hero__img { object-position: 50% 100%; transform-origin: 50% 85%; }
-  /* sfumatura solo in alto, dietro al testo; misure in px perché il blocco di testo ha altezza fissa */
-  .hero__veil {
-    background: linear-gradient(to bottom,
-      rgba(24, 26, 15, .88) 0,
-      rgba(24, 26, 15, .74) 190px,
-      rgba(24, 26, 15, .48) 300px,
-      rgba(24, 26, 15, .2) 360px,
-      rgba(24, 26, 15, 0) 410px);
+  .hero { --hero-fade: 36px; align-items: flex-start; background: #181A0F; }
+  /* la foto parte sotto il testo e sfuma nel fondo scuro; misure in px perché il blocco di testo ha altezza fissa */
+  .hero__img {
+    top: auto;
+    height: calc(100% - 268px);
+    object-position: 50% 50%;
+    transform-origin: 50% 45%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 40px);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 40px);
   }
+  .hero__veil { background: none; }
   .header:not(.is-solid) .logo { text-shadow: 0 1px 10px rgba(0, 0, 0, .45); }
   .hero__content { padding-top: calc(var(--header-h) + .75rem); padding-bottom: 0; }
   .hero__title { font-size: clamp(1.9rem, 8.4vw, 2.25rem); }
@@ -591,17 +601,10 @@ p { margin: 0; }
   .badge--hero .badge__stars { font-size: .7rem; }
   .scroll-hint { display: none; }
 }
-/* telefoni bassi: senza la frase, così la metà bassa della foto resta libera */
+/* telefoni bassi: senza la frase, così la villa ha più spazio */
 @media (max-width: 767px) and (max-height: 760px) {
   .hero__lead { display: none; }
-  .hero__veil {
-    background: linear-gradient(to bottom,
-      rgba(24, 26, 15, .88) 0,
-      rgba(24, 26, 15, .72) 170px,
-      rgba(24, 26, 15, .45) 250px,
-      rgba(24, 26, 15, .18) 295px,
-      rgba(24, 26, 15, 0) 330px);
-  }
+  .hero__img { height: calc(100% - 232px); }
 }
 
 /* ---------- Sezioni ---------- */
@@ -663,11 +666,21 @@ p { margin: 0; }
   font-style: italic;
 }
 
-/* La piscina */
-.piscina { background: var(--pietra); }
+/* La piscina: si apre con la fascia del tramonto, nitida e a colori pieni */
+.piscina { padding-top: 0; background: var(--pietra); }
+.piscina .band { min-height: clamp(320px, 46svh, 400px); margin-bottom: clamp(2.75rem, 7vw, 5.5rem); }
+.piscina .band__media img { filter: none; transform: none; object-position: 50% 80%; }
+/* solo un velo leggero dietro al titolo: il cielo resta acceso */
+.piscina .band::after {
+  background: radial-gradient(ellipse 58% 34% at 50% 52%, rgba(24, 26, 15, .5) 0%, rgba(24, 26, 15, .22) 60%, rgba(24, 26, 15, 0) 100%);
+}
+.piscina .band__text { text-shadow: 0 2px 22px rgba(0, 0, 0, .6), 0 0 2px rgba(0, 0, 0, .35); }
 .piscina__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+.piscina__text .intro { margin-top: 0; }
 .piscina .arch { border-color: var(--oro); }
-.piscina__tramonto img { object-position: 50% 62%; }
+/* su telefono e tablet i tavoli aprono il carosello, sul computer stanno nell'arco */
+.piscina__tavoli { display: none; }
+.piscina__tavoli img { object-position: 50% 55%; }
 .momenti {
   list-style: none;
   max-width: 30rem;
@@ -1805,7 +1818,8 @@ p { margin: 0; }
     gap: 4.5rem;
     align-items: center;
   }
-  .piscina__tramonto { order: -1; }
+  .piscina__tavoli { display: block; order: -1; }
+  .piscina .band { min-height: clamp(480px, 80vh, 760px); }
   /* tre foto alla stessa altezza, nelle loro proporzioni */
   .piscina__altre {
     display: flex;
