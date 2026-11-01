@@ -683,3 +683,20 @@
     document.getElementById('f-tipo').focus();
   });
 })();
+
+/* Mappa: l'iframe di Google si carica solo dopo il clic */
+(function () {
+  var btn = document.getElementById('mostra-mappa');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var box = btn.closest('.dove__map');
+    var frame = document.createElement('iframe');
+    frame.title = 'Mappa: Villa Anna – Ristorante La Teleferica a Lettomanoppello';
+    frame.src = btn.getAttribute('data-src');
+    frame.referrerPolicy = 'no-referrer-when-downgrade';
+    frame.setAttribute('allowfullscreen', '');
+    box.appendChild(frame);
+    box.classList.add('is-attiva');
+    frame.focus();
+  });
+})();
